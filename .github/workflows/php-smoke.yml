@@ -58,6 +58,13 @@ jobs:
           grep -q 'QUERY RESULT / 0 RECORD(S)' /tmp/v2-sqli.html
           curl -sS -o /tmp/v2get.txt -w '%{http_code}' http://localhost:8000/v2/update-profile.php > /tmp/status.txt
           grep -q '302' /tmp/status.txt
+          # UI regression: local photos, new styles and accessible version switch.
+          curl -fsS http://localhost:8000/assets/css/refinement.css -o /tmp/cas-refinement.css
+          grep -q 'ui-forest' /tmp/cas-refinement.css
+          curl -fsS http://localhost:8000/assets/images/garden.png -o /tmp/cas-garden.png
+          test "$(wc -c < /tmp/cas-garden.png)" -gt 100000
+          grep -q 'Chọn phiên bản thực nghiệm' /tmp/v2-home.html
+          grep -q 'skip-link' /tmp/v2-home.html
           # Verify harmless reflected XSS exists in V1 but is encoded in V2.
           curl -fsSG --data-urlencode "q=<img src=x onerror=alert(1)>" http://localhost:8000/v1/xss.php -o /tmp/v1-xss.html
           curl -fsSG --data-urlencode "q=<img src=x onerror=alert(1)>" http://localhost:8000/v2/xss.php -o /tmp/v2-xss.html

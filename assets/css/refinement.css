@@ -6,7 +6,7 @@
   --ui-forest:#253c31;--ui-forest-deep:#182d24;--ui-sage:#6c8269;
   --ui-sage-deep:#4c6651;--ui-sage-light:#e7eee5;--ui-surface:#fffefa;
   --ui-canvas:#f8f7f2;--ui-line:#e3e5db;--ui-ink:#273c30;
-  --ui-muted:#59685d;--ui-muted-light:#748176;--ui-error:#a54837;
+  --ui-muted:#59685d;--ui-muted-light:#556858;--ui-error:#a54837;
   --ui-error-bg:#fff0e9;--ui-safe:#386946;--ui-safe-bg:#ebf3e8;
   --ui-radius:16px;--ui-shadow:0 16px 46px rgba(27,54,39,.055);
   --ui-sans:"Segoe UI",Arial,Tahoma,sans-serif;
@@ -134,13 +134,13 @@ input::placeholder{color:#778277}
 .lab-card{border-radius:14px;padding:26px;min-height:220px;box-shadow:var(--ui-shadow)}
 .lab-card:hover{box-shadow:0 20px 46px #1b392214}
 .lab-card strong{font-family:var(--ui-sans)!important;font-weight:690;font-size:23px;letter-spacing:-.025em}
-.lab-card span{font-size:14px}
+.lab-card span{font-size:14px;color:var(--ui-muted)}.lab-card small{color:var(--ui-sage-deep)}
 .collection{padding:35px 0 100px}
 .product-grid{gap:22px}
 .product{border-radius:14px;box-shadow:0 5px 20px #2238220a}
 .product-photo{height:325px}
 .product-info h3{font-family:var(--ui-sans)!important;font-size:18px;font-weight:680;letter-spacing:-.018em}
-.product-info small{font-size:12px}
+.product-info small{font-size:12px;color:var(--ui-sage-deep)}
 .product-bottom strong{font-size:15px}
 .product-bottom a{font-size:13px;font-weight:650}
 .footer{padding:52px 0 25px}

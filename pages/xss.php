@@ -20,7 +20,7 @@ layout_top('XSS – tìm lời nhắn', 'xss');
 <div class="lab-columns"><section class="lab-panel"><div class="panel-title"><h2>Thiệp gửi kèm hoa</h2><span class="pill <?= LAB_VERSION==='v1'?'bad':'good' ?>"><?= LAB_VERSION==='v1'?'RAW HTML OUTPUT':'ESCAPED HTML OUTPUT' ?></span></div>
 <div class="product-preview"><img src="<?= h(photo('mot-bo-hoa.png')) ?>" data-photo="mot-bo-hoa.png" alt="Một bó hoa màu đỏ"><div><small>CÁ'S HOA / PERSONAL MESSAGE</small><strong>Một bó hoa, một lần được nhớ đến</strong><span class="product-price">390.000 đ</span></div></div>
 <form method="get" action="<?= h(page_url('xss.php')) ?>"><label for="q">Lời nhắn gửi cùng bó hoa</label><p class="field-help" id="q-help">Thử nhập lời chúc thông thường, sau đó dùng payload ở khu vực hướng dẫn.</p><div class="form-row"><input id="q" name="q" maxlength="400" aria-describedby="q-help" value="<?= h($q) ?>" placeholder="Ví dụ: Chúc mừng sinh nhật"><button class="btn primary" type="submit">Xem trước</button></div></form>
-<div class="result"><small>PREVIEW / KẾT QUẢ HIỂN THỊ</small><p id="xss-status" class="status">Chưa có JavaScript được thực thi</p><div class="message-preview"><?php
+<div class="result"><small>PREVIEW / KẾT QUẢ HIỂN THỊ</small><p id="xss-status" class="status" role="status" aria-live="polite">Chưa có JavaScript được thực thi</p><div class="message-preview"><?php
 if(LAB_VERSION==='v1') {
     // INTENTIONAL VULNERABILITY: untrusted input is written into HTML text context.
     echo $q === '' ? 'Lời nhắn của bạn sẽ xuất hiện tại đây.' : $q;
