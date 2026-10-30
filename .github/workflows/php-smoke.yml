@@ -1,0 +1,55 @@
+name: PHP syntax and local demo smoke
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: demo_root_pass
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check PHP syntax
+        shell: bash
+        run: |
+          php -v
+          find . -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Install PDO MySQL and MySQL client
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y php-mysql mysql-client
+      - name: Import isolated sample database
+        env:
+          MYSQL_PWD: demo_root_pass
+        run: mysql --host=127.0.0.1 --user=root < database/setup.sql
+      - name: Exercise both versions on localhost
+        env:
+          CAS_DB_HOST: 127.0.0.1
+          CAS_DB_PORT: "3306"
+          CAS_DB_NAME: cas_hoa_security_lab
+          CAS_DB_USER: root
+          CAS_DB_PASSWORD: demo_root_pass
+        shell: bash
+        run: |
+          php -S localhost:8000 -t . > /tmp/cas-php.log 2>&1 &
+          sleep 2
+          curl -fsS http://localhost:8000/v1/index.php | grep -q "Garden"
+          curl -fsS http://localhost:8000/v2/index.php | grep -q "Garden"
+          curl -fsSG --data-urlencode "term=Garden" http://localhost:8000/v2/sqli.php | grep -q "QUERY RESULT / 1 RECORD(S)"
+          curl -fsSG --data-urlencode "term=' OR is_public = 0 #" http://localhost:8000/v1/sqli.php | grep -q "Hồ sơ ẩn"
+          curl -fsSG --data-urlencode "term=' OR is_public = 0 #" http://localhost:8000/v2/sqli.php | grep -q "QUERY RESULT / 0 RECORD(S)"
+          curl -sS -o /tmp/v2get.txt -w "%{http_code}" http://localhost:8000/v2/update-profile.php | grep -q "302"
+          cat /tmp/cas-php.log
