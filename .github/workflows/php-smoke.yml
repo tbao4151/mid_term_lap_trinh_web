@@ -58,4 +58,20 @@ jobs:
           grep -q 'QUERY RESULT / 0 RECORD(S)' /tmp/v2-sqli.html
           curl -sS -o /tmp/v2get.txt -w '%{http_code}' http://localhost:8000/v2/update-profile.php > /tmp/status.txt
           grep -q '302' /tmp/status.txt
+          # Verify harmless reflected XSS exists in V1 but is encoded in V2.
+          curl -fsSG --data-urlencode "q=<img src=x onerror=alert(1)>" http://localhost:8000/v1/xss.php -o /tmp/v1-xss.html
+          curl -fsSG --data-urlencode "q=<img src=x onerror=alert(1)>" http://localhost:8000/v2/xss.php -o /tmp/v2-xss.html
+          grep -Fq '<img src=x onerror=alert(1)>' /tmp/v1-xss.html
+          grep -Fq '&lt;img src=x onerror=alert(1)&gt;' /tmp/v2-xss.html
+          # Log in with separate demo sessions and test a forged state-changing GET.
+          curl -fsSL -c /tmp/v1-cookies -b /tmp/v1-cookies --data-urlencode 'username=student' --data-urlencode 'password=demo12345' http://localhost:8000/v1/login.php -o /tmp/v1-profile.html
+          grep -q 'Khách hàng Demo' /tmp/v1-profile.html
+          curl -sS -b /tmp/v1-cookies -o /tmp/v1-update.txt -w '%{http_code}' 'http://localhost:8000/v1/update-profile.php?display_name=CSRF-Attacked' > /tmp/v1-code.txt
+          grep -q '302' /tmp/v1-code.txt
+          curl -fsS -b /tmp/v1-cookies http://localhost:8000/v1/profile.php -o /tmp/v1-new-profile.html
+          grep -q 'CSRF-Attacked' /tmp/v1-new-profile.html
+          curl -fsSL -c /tmp/v2-cookies -b /tmp/v2-cookies --data-urlencode 'username=student' --data-urlencode 'password=demo12345' http://localhost:8000/v2/login.php -o /tmp/v2-profile.html
+          grep -q 'Khách hàng Demo' /tmp/v2-profile.html
+          curl -sS -b /tmp/v2-cookies -o /tmp/v2-update.txt -w '%{http_code}' 'http://localhost:8000/v2/update-profile.php?display_name=CSRF-Attacked' > /tmp/v2-code.txt
+          grep -q '405' /tmp/v2-code.txt
           cat /tmp/cas-php.log
