@@ -203,3 +203,6 @@ input::placeholder{color:#778277}
 }
 @media(max-width:370px){.container{width:calc(100% - 24px)}.nav a{padding:7px 8px;font-size:11px}.hero-context span{font-size:11px}.panel-title{align-items:start}.product-grid{gap:8px}.product-photo{height:175px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+
+/* Manual reset for repeatable demo; no automatic database modification on logout. */
+.reset-demo-form{margin-top:18px}.reset-demo-form .btn{min-height:44px}.reset-demo-form+.muted{max-width:58ch}

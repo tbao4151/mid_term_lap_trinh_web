@@ -21,6 +21,7 @@ layout_top('Tài khoản khách hàng', 'csrf');
   </section>
 <div class="lab-columns"><section class="lab-panel"><div class="panel-title"><h2>Thông tin khách hàng</h2><span class="pill <?= LAB_VERSION==='v1'?'bad':'good' ?>"><?= LAB_VERSION==='v1'?'UNPROTECTED GET':'POST + CSRF TOKEN' ?></span></div>
 <?php if($error): ?><div class="notice error"><?= h($error) ?></div><?php endif; ?>
+<?php if(isset($_GET['reset']) && $_GET['reset'] === '1' && $user): ?><div class="notice" role="status">Đã khôi phục tên tài khoản demo về “Khách hàng Demo”. Bạn có thể quay lại bài thử CSRF từ đầu.</div><?php endif; ?>
 <?php if($user): ?>
 <div class="account-card"><span class="avatar">C</span><div><small>KHÁCH HÀNG DEMO</small><h3><?= h($user['display_name']) ?></h3><p><?= h($user['email']) ?></p></div></div>
 <form class="vertical-form" method="<?= LAB_VERSION==='v1'?'get':'post' ?>" action="<?= h(page_url('update-profile.php')) ?>">
@@ -28,6 +29,11 @@ layout_top('Tài khoản khách hàng', 'csrf');
 <?php if(LAB_VERSION==='v2'): ?><input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>"><?php endif; ?>
 <button class="btn primary" type="submit">Lưu thay đổi</button></form>
 <p class="muted">Sau khi cập nhật, tải lại trang để xác nhận tên đã được lưu trong MySQL.</p>
+<form class="reset-demo-form" method="post" action="<?= h(page_url('reset-demo.php')) ?>">
+  <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
+  <button class="btn subtle" type="submit">Đặt lại dữ liệu demo</button>
+</form>
+<p class="muted">Chỉ khôi phục tên tài khoản <?= h(strtoupper(LAB_VERSION)) ?> về “Khách hàng Demo”, không xóa sản phẩm hay database. Đăng xuất không tự đặt lại thông tin đã lưu trong MySQL.</p>
 <?php endif; ?>
 <p><a class="underlined" href="<?= h(page_url('logout.php')) ?>">Đăng xuất tài khoản demo</a></p>
 </section><aside class="lab-aside" aria-label="Hướng dẫn kiểm tra CSRF">

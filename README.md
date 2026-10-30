@@ -72,3 +72,10 @@ Nếu Apache dùng port khác, thay toàn bộ URL cho đúng. Đây là mô ph�
 ## Giới hạn và an toàn
 
 Không cấu hình public hosting hoặc port forwarding cho ứng dụng V1. Không dùng dữ liệu khách hàng thật. Repo là mã nguồn thực hành; cần tự chạy trên XAMPP và ghi lại ảnh chụp trình duyệt trước khi kết luận test pass. Nguồn ảnh: https://github.com/tbao4151/Lap_trinh_web.
+
+
+## Khôi phục dữ liệu khi quay video nhiều lần
+
+Khi thử CSRF trên V1, tên CSRF-Attacked được lưu trong MySQL. Đăng xuất chỉ xóa session, nên đăng nhập lại vẫn hiển thị tên đã lưu. Để quay lại từ đầu, đăng nhập vào V1 hoặc V2, mở profile.php và bấm **Đặt lại dữ liệu demo**.
+
+Nút này chỉ đặt lại tên tài khoản demo của phiên bản đang xem về **Khách hàng Demo**. Nó sử dụng POST và CSRF token, không xóa bảng hay sản phẩm. Hành vi logout vẫn đúng nghĩa: chỉ kết thúc phiên đăng nhập.

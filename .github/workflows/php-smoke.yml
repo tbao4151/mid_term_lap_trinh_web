@@ -81,4 +81,12 @@ jobs:
           grep -q 'Khách hàng Demo' /tmp/v2-profile.html
           curl -sS -b /tmp/v2-cookies -o /tmp/v2-update.txt -w '%{http_code}' 'http://localhost:8000/v2/update-profile.php?display_name=CSRF-Attacked' > /tmp/v2-code.txt
           grep -q '405' /tmp/v2-code.txt
+          # Restore the CSRF demonstration to its clean, repeatable database state.
+          reset_token=$(sed -n 's/.*name="csrf_token" value="\([a-f0-9]\{64\}\)".*/\1/p' /tmp/v1-new-profile.html | head -n1)
+          test -n "$reset_token"
+          curl -fsSL -b /tmp/v1-cookies -c /tmp/v1-cookies --data-urlencode "csrf_token=$reset_token" http://localhost:8000/v1/reset-demo.php -o /tmp/v1-reset-profile.html
+          grep -q 'Đã khôi phục tên tài khoản demo' /tmp/v1-reset-profile.html
+          grep -q 'Khách hàng Demo' /tmp/v1-reset-profile.html
+          curl -sS -b /tmp/v1-cookies -o /tmp/invalid-reset.txt -w '%{http_code}' -X POST http://localhost:8000/v1/reset-demo.php > /tmp/invalid-reset-status.txt
+          grep -q '403' /tmp/invalid-reset-status.txt
           cat /tmp/cas-php.log
