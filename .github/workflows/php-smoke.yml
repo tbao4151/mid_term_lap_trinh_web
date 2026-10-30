@@ -46,10 +46,16 @@ jobs:
         run: |
           php -S localhost:8000 -t . > /tmp/cas-php.log 2>&1 &
           sleep 2
-          curl -fsS http://localhost:8000/v1/index.php | grep -q "Garden"
-          curl -fsS http://localhost:8000/v2/index.php | grep -q "Garden"
-          curl -fsSG --data-urlencode "term=Garden" http://localhost:8000/v2/sqli.php | grep -q "QUERY RESULT / 1 RECORD(S)"
-          curl -fsSG --data-urlencode "term=' OR is_public = 0 #" http://localhost:8000/v1/sqli.php | grep -q "Hồ sơ ẩn"
-          curl -fsSG --data-urlencode "term=' OR is_public = 0 #" http://localhost:8000/v2/sqli.php | grep -q "QUERY RESULT / 0 RECORD(S)"
-          curl -sS -o /tmp/v2get.txt -w "%{http_code}" http://localhost:8000/v2/update-profile.php | grep -q "302"
+          curl -fsS http://localhost:8000/v1/index.php -o /tmp/v1-home.html
+          curl -fsS http://localhost:8000/v2/index.php -o /tmp/v2-home.html
+          grep -q 'Garden' /tmp/v1-home.html
+          grep -q 'Garden' /tmp/v2-home.html
+          curl -fsSG --data-urlencode 'term=Garden' http://localhost:8000/v2/sqli.php -o /tmp/v2-garden.html
+          grep -q 'QUERY RESULT / 1 RECORD(S)' /tmp/v2-garden.html
+          curl -fsSG --data-urlencode "term=' OR is_public = 0 #" http://localhost:8000/v1/sqli.php -o /tmp/v1-sqli.html
+          grep -q 'Hồ sơ ẩn' /tmp/v1-sqli.html
+          curl -fsSG --data-urlencode "term=' OR is_public = 0 #" http://localhost:8000/v2/sqli.php -o /tmp/v2-sqli.html
+          grep -q 'QUERY RESULT / 0 RECORD(S)' /tmp/v2-sqli.html
+          curl -sS -o /tmp/v2get.txt -w '%{http_code}' http://localhost:8000/v2/update-profile.php > /tmp/status.txt
+          grep -q '302' /tmp/status.txt
           cat /tmp/cas-php.log
