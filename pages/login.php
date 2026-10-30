@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD']==='POST') {
 }
 layout_top('Đăng nhập tài khoản demo', 'csrf');
 ?>
-<main class="container narrow lab-page"><div class="lab-heading center"><p class="eyebrow">CÁ'S HOA / DEMO ACCOUNT</p><h1>Đăng nhập tài khoản</h1><p>Đăng nhập vào dữ liệu giả lập để thực hành lỗ hổng CSRF.</p></div><section class="lab-panel">
+<main class="container narrow lab-page" id="main-content"><div class="lab-heading center"><p class="eyebrow">CÁ'S HOA / DEMO ACCOUNT</p><h1>Đăng nhập tài khoản</h1><p>Đăng nhập vào dữ liệu giả lập để thực hành lỗ hổng CSRF.</p></div><section class="lab-panel">
 <?php if($error): ?><div class="notice error"><?= h($error) ?></div><?php endif; ?>
 <form method="post" action="<?= h(page_url('login.php')) ?>" class="vertical-form"><label for="username">Tên tài khoản</label><input id="username" name="username" required autocomplete="username" value="student"><label for="password">Mật khẩu</label><input id="password" name="password" type="password" required autocomplete="current-password" value="demo12345"><button class="btn primary" type="submit">Đăng nhập demo</button></form>
 <div class="notice"><strong>Chỉ sử dụng tài khoản giả:</strong> student / demo12345. Hai phiên bản có người dùng độc lập để kiểm thử không chồng trạng thái.</div></section></main>
