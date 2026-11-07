@@ -1,10 +1,10 @@
-# Kịch bản demo dự kiến (8–12 phút)
+# Kịch bản video CÁ'S HOA (17–18 phút, giới hạn 20 phút)
 
-1. 0:00–1:00 — Giới thiệu đề số 3, mô hình cửa hàng CÁ'S HOA và giới hạn thử nghiệm localhost.
-2. 1:00–2:00 — Kiến trúc Apache / PHP / MySQL, chung giao diện, 2 phiên bản V1 và V2.
-3. 2:00–4:00 — XSS: tìm lời nhắn hoa, thử input bình thường, chạy cùng harmless payload trên V1/V2.
-4. 4:00–6:00 — SQLi: tìm Garden bình thường, thử boolean payload; đánh giá 2 hồ sơ nội bộ, PDO prepare.
-5. 6:00–9:00 — CSRF: login demo, mở attacker origin 127.0.0.1, gửi GET, V1 thay đổi, V2 405, POST hợp lệ.
-6. 9:00–11:00 — Phân tích nguyên nhân, bảng so sánh khắc phục, kết luận và giới hạn demo.
+1. 00:00–02:00 — Nguyễn Văn Thiên Bảo: giới thiệu nhóm, kiến trúc PHP/MySQL/XAMPP, V1/V2, giới hạn localhost.
+2. 02:00–05:30 — Trần Gia Hưng: XSS, V1 XSS_EXECUTED, V2 hiển thị ký tự như văn bản.
+3. 05:30–09:00 — Phạm Hiệp Phú: SQL Injection, tìm Garden (1 sản phẩm), payload `' OR is_public = 0 #`: V1 11 bản ghi gồm 2 hồ sơ ẩn, V2 0.
+4. 09:00–14:00 — Nguyễn Văn Thiên Bảo: CSRF, V1 đổi tên bằng yêu cầu GET giả mạo từ 127.0.0.1, V2 405; kiểm tra cập nhật POST/token hợp lệ.
+5. 14:00–16:00 — Nguyễn Văn Thiên Bảo: Phishing, so sánh `v1/phishing.php` và `v2/phishing.php`, nhấn Kiểm tra thông báo, trình bày ba dấu hiệu nghi vấn và xác minh độc lập.
+6. 16:00–17:30 — Nguyễn Văn Thiên Bảo: tổng hợp, giới hạn, kết luận.
 
-Video cuối cùng phải có sự tham gia của tất cả thành viên, tối đa 20 phút. Chỉ trình bày kết quả đã kiểm tra và ảnh chụp thật trên XAMPP.
+Có tiếng nói của cả ba người. Phishing chỉ là bài thực hành nhận diện qua thông báo giả lập, không có tấn công thực tế hoặc thu thập mật khẩu. Các phần thực nghiệm quay từ trình duyệt XAMPP của nhóm.

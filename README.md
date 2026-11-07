@@ -33,6 +33,7 @@ Nếu MySQL của bạn đã thay đổi tài khoản hoặc mật khẩu, cấu
 | xss.php (lời nhắn hoa) | Reflected XSS do xuất raw HTML | htmlspecialchars, CSP |
 | sqli.php (tìm hoa) | SQL từ input nối chuỗi trực tiếp | PDO prepared statements |
 | profile.php (tài khoản) | GET đổi tên, không CSRF token | POST + session CSRF token |
+| phishing.php (nhận diện thông báo giả lập) | Quan sát và tự đánh giá | Giải thích dấu hiệu và hướng dẫn xác minh |
 | login.php | Dữ liệu demo riêng | Dữ liệu demo riêng |
 
 Phiên bản V1 và V2 dùng người dùng khác nhau trong cùng database để không bị lẫn kết quả, nhưng đăng nhập đều dùng username: student, password: demo12345.
@@ -79,3 +80,9 @@ Không cấu hình public hosting hoặc port forwarding cho ứng dụng V1. Kh
 Khi thử CSRF trên V1, tên CSRF-Attacked được lưu trong MySQL. Đăng xuất chỉ xóa session, nên đăng nhập lại vẫn hiển thị tên đã lưu. Để quay lại từ đầu, đăng nhập vào V1 hoặc V2, mở profile.php và bấm **Đặt lại dữ liệu demo**.
 
 Nút này chỉ đặt lại tên tài khoản demo của phiên bản đang xem về **Khách hàng Demo**. Nó sử dụng POST và CSRF token, không xóa bảng hay sản phẩm. Hành vi logout vẫn đúng nghĩa: chỉ kết thúc phiên đăng nhập.
+
+## Mô phỏng Phishing trên localhost
+
+Mở `http://localhost/mid_term_lap_trinh_web/v1/phishing.php`, quan sát thông báo giao hoa giả lập và bấm **Kiểm tra thông báo**. Chuyển sang `v2/phishing.php` để kiểm tra cùng thông báo và xem ba dấu hiệu nghi vấn. Thông báo chỉ chứa tên miền `.example.test`, mã đơn và phí giả định; không có liên kết phishing hoạt động, không có biểu mẫu nhận mật khẩu/OTP và không gửi dữ liệu ra bên ngoài.
+
+Các file liên quan: `pages/phishing.php`, `assets/css/phishing.css`, `assets/js/phishing.js`, `v1/phishing.php`, `v2/phishing.php`. Chạy `bash tests/phishing-checks.sh http://localhost/mid_term_lap_trinh_web` trong Git Bash/WSL/Linux (cần Python 3). Kiểm tra HTTP/HTML này được gọi trong GitHub Actions, không thay thế kiểm tra tương tác trực tiếp trong trình duyệt.

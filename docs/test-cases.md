@@ -15,3 +15,10 @@
 Bảng này mô tả kết quả mong đợi từ code. Chưa thay thế biên bản kiểm thử thực tế trên XAMPP và ảnh chụp từ trình duyệt.
 
 Lưu ý: Chỉ sử dụng tài khoản giả và database riêng, không thử trên hệ thống của bên thứ ba.
+
+| PHISH-01 | Mở hai trang `v1/phishing.php` và `v2/phishing.php` | HTTP 200, có nhãn MÔ PHỎNG HỌC TẬP | HTTP 200, có nhãn MÔ PHỎNG HỌC TẬP |
+| PHISH-02 | Nhấn Kiểm tra thông báo | Hiện lời nhắc tự đánh giá | Nêu 3 dấu hiệu nghi vấn và cách xác minh |
+| PHISH-03 | Chuyển phiên bản V1/V2 từ menu | Giữ trang Phishing | Giữ cùng kịch bản |
+| PHISH-04 | Kiểm tra assets, input, CSP | Không có biểu mẫu nhận mật khẩu/OTP | Các header V2 giữ nguyên, không gửi dữ liệu ra ngoài |
+
+Kiểm thử HTTP/HTML: `bash tests/phishing-checks.sh http://localhost/mid_term_lap_trinh_web`. Kiểm thử tương tác JavaScript vẫn cần quan sát trên trình duyệt.
