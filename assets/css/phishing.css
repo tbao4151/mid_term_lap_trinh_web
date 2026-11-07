@@ -1,0 +1,52 @@
+/* Scoped to the educational simulator; shared layout and other labs stay intact. */
+.phishing-page { padding-bottom: 56px; }
+.phishing-page .phishing-safety { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; padding: 14px 18px; margin: 22px 0 32px; border: 1px solid var(--ui-line, #e3e5db); border-radius: 12px; background: var(--ui-sage-light, #e7eee5); color: var(--ui-forest, #253c31); font-size: 13px; }
+.phishing-safety strong { letter-spacing: .08em; }
+.phishing-heading { max-width: 820px; margin-bottom: 34px; }
+.phishing-heading h1 { margin-bottom: 20px; }
+.phishing-heading .lead { max-width: 690px; }
+.phishing-heading .hero-context { display: flex; flex-wrap: wrap; gap: 8px; }
+.phishing-heading .hero-context span { display: block; }
+.phishing-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.phishing-grid > * { min-width: 0; }
+.phishing-panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+.phishing-panel-heading h2 { margin: 0; font-size: 24px; }
+.phishing-counter { color: var(--ui-muted, #59685d); font-size: 12px; white-space: nowrap; }
+.phishing-scenario { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px; padding: 12px; border: 1px solid var(--ui-sage-deep, #4c6651); border-radius: 10px; background: var(--ui-sage-light, #e7eee5); color: var(--ui-forest, #253c31); text-align: left; font-weight: 650; cursor: pointer; }
+.phishing-selected { margin-left: auto; font-size: 11px; white-space: nowrap; }
+.phishing-message { margin-top: 20px; border: 1px solid var(--ui-line, #e3e5db); border-radius: 12px; overflow: hidden; background: var(--ui-surface, #fffefa); }
+.phishing-sender { display: flex; align-items: center; gap: 12px; padding: 18px; background: #f1f3ed; border-bottom: 1px solid var(--ui-line, #e3e5db); }
+.phishing-avatar { display: grid; place-items: center; flex: 0 0 40px; height: 40px; border-radius: 50%; background: var(--ui-forest, #253c31); color: white; font-size: 12px; font-weight: 700; }
+.phishing-sender > div { min-width: 0; }
+.phishing-sender strong, .phishing-sender div > span { display: block; overflow-wrap: anywhere; }
+.phishing-sender strong { font-size: 13px; }
+.phishing-sender div > span { font-size: 12px; color: var(--ui-muted, #59685d); }
+.phishing-message-body { padding: 22px; }
+.phishing-message h3 { font-size: 21px; }
+.phishing-message p { font-size: 14px; }
+.phishing-address { padding: 14px; border: 1px dashed #9aa791; border-radius: 8px; background: #f8f7f2; }
+.phishing-address > span { display: block; margin-bottom: 7px; font-size: 11px; color: var(--ui-muted, #59685d); }
+.phishing-page code { overflow-wrap: anywhere; white-space: normal; font-size: .85em; }
+.phishing-mock-cta { display: block; padding: 12px; margin-top: 18px; border-radius: 8px; background: #e7eee5; color: #253c31; text-align: center; font-weight: 650; font-size: 14px; }
+.phishing-mock-cta small { display: block; font-weight: 400; }
+.phishing-inspect { margin-top: 22px; }
+.phishing-page .phishing-inspect .btn { min-height: 44px; background: var(--ui-sage-deep, #4c6651); white-space: normal; }
+.phishing-inspect p { margin: 10px 0 0; font-size: 12px; }
+.phishing-review h2 { font-size: 28px; }
+.phishing-review h3 { font-size: 16px; margin-bottom: 12px; }
+.phishing-signals, .phishing-official ol { padding-left: 21px; margin: 0; }
+.phishing-signals li, .phishing-official li { margin-bottom: 14px; font-size: 14px; }
+.phishing-signals strong { display: block; }
+.phishing-official { border-top: 1px solid #d0d9cb; margin-top: 24px; padding-top: 22px; }
+.phishing-official p, .phishing-footnote { font-size: 12px; }
+.phishing-reflection { padding: 18px; background: var(--ui-surface, #fffefa); border-left: 3px solid var(--ui-sage-deep, #4c6651); border-radius: 0 8px 8px 0; }
+.phishing-footnote { margin: 24px 0 0; max-width: 900px; }
+@media (max-width: 900px) { .phishing-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 480px) {
+  .phishing-page .phishing-safety { padding: 12px; margin-bottom: 24px; }
+  .phishing-panel-heading h2 { font-size: 21px; }
+  .phishing-message-body, .phishing-sender { padding: 14px; }
+  .phishing-scenario { flex-wrap: wrap; gap: 6px 10px; }
+  .phishing-inspect .btn { width: 100%; }
+  .phishing-review h2 { font-size: 25px; }
+}
