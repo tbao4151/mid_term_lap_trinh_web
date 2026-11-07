@@ -3,8 +3,6 @@ require_once __DIR__ . '/../lib/layout.php';
 $isProtected = LAB_VERSION === 'v2';
 layout_top('Phishing – xác minh thông báo giao hoa', 'phishing');
 ?>
-<!-- Page-scoped stylesheet; no change to the shared layout is required. -->
-<link rel="stylesheet" href="<?= h(base_url('assets/css/phishing.css')) ?>">
 <main class="container lab-page phishing-page" id="phishing-simulator" data-version="<?= h(LAB_VERSION) ?>" aria-labelledby="phishing-title">
   <div id="main-content" tabindex="-1">
     <div class="crumb"><a href="<?= h(page_url()) ?>">Cửa hàng hoa</a> / Thực hành Phishing</div>
@@ -18,7 +16,7 @@ layout_top('Phishing – xác minh thông báo giao hoa', 'phishing');
     <div class="phishing-grid">
       <section class="lab-panel phishing-card" aria-labelledby="scenario-title">
         <div class="phishing-panel-heading"><h2 id="scenario-title">Hộp thư tình huống</h2><span class="phishing-counter">01 / 01</span></div>
-        <button class="phishing-scenario" type="button" data-phishing-scenario="delivery" aria-pressed="true" aria-controls="phishing-message"><span aria-hidden="true">✉</span> Thông báo giao hoa <span class="phishing-selected">Đang chọn</span></button>
+        <button class="phishing-scenario" type="button" data-phishing-scenario="delivery" aria-pressed="true" aria-controls="phishing-message">Thông báo giao hoa <span class="phishing-selected">Đang chọn</span></button>
         <article id="phishing-message" class="phishing-message" aria-labelledby="message-title">
           <div class="phishing-sender"><span class="phishing-avatar" aria-hidden="true">GH</span><div><strong>Giao Hoa Nhanh — đơn vị giả lập</strong><span>thongbao@giao-hoa.example.test</span></div></div>
           <div class="phishing-message-body">
@@ -30,7 +28,7 @@ layout_top('Phishing – xác minh thông báo giao hoa', 'phishing');
             <span class="phishing-mock-cta">Xác minh đơn hàng <small>(minh họa, không thể bấm)</small></span>
           </div>
         </article>
-        <div class="phishing-inspect"><button class="btn primary" type="button" data-phishing-action="inspect" aria-controls="phishing-feedback" aria-describedby="inspect-help">Kiểm tra thông báo</button><p id="inspect-help">Thao tác kiểm tra tương tác chưa được bật trong bản xem trước.</p></div>
+        <div class="phishing-inspect"><button class="btn primary" type="button" data-phishing-action="inspect" aria-controls="phishing-feedback" aria-describedby="inspect-help">Kiểm tra thông báo</button><p id="inspect-help">Nhấn để kiểm tra thông báo. V1 tự đánh giá; V2 giải thích dấu hiệu.</p></div>
       </section>
       <aside class="lab-aside phishing-review" aria-labelledby="review-title">
         <p class="eyebrow"><?= $isProtected ? 'V2 / NHẬN DIỆN & XÁC MINH' : 'V1 / QUAN SÁT & SUY NGẪM' ?></p>

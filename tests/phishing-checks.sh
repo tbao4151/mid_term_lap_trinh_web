@@ -192,7 +192,7 @@ for version in ('v1', 'v2'):
             assets.append((attrs['src'], 'js', attrs))
 
     expected = ('assets/css/site.css', 'assets/css/refinement.css',
-                'assets/js/site.js', 'assets/js/phishing.js')
+                'assets/js/site.js', 'assets/js/phishing.js', 'assets/css/phishing.css')
     resolved = [(urljoin(page_url, path), kind, attrs) for path, kind, attrs in assets]
     for path in expected:
         check(any(urlsplit(url).path == location.path.rstrip('/') + '/' + path

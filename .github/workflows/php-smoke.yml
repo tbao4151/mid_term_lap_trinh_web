@@ -89,4 +89,5 @@ jobs:
           grep -q 'Khách hàng Demo' /tmp/v1-reset-profile.html
           curl -sS -b /tmp/v1-cookies -o /tmp/invalid-reset.txt -w '%{http_code}' -X POST http://localhost:8000/v1/reset-demo.php > /tmp/invalid-reset-status.txt
           grep -q '403' /tmp/invalid-reset-status.txt
+          bash tests/phishing-checks.sh http://localhost:8000
           cat /tmp/cas-php.log

@@ -4,7 +4,7 @@ require_once __DIR__ . '/bootstrap.php';
 /** Keep the user on the same experiment when switching vulnerable/patched versions. */
 function version_page_url(string $version): string {
     $page = basename((string) ($_SERVER['SCRIPT_NAME'] ?? 'index.php'));
-    if (!in_array($page, ['index.php', 'xss.php', 'sqli.php', 'profile.php', 'login.php'], true)) {
+    if (!in_array($page, ['index.php', 'xss.php', 'sqli.php', 'profile.php', 'login.php', 'phishing.php'], true)) {
         $page = 'index.php';
     }
     $params = [];
@@ -22,10 +22,14 @@ function layout_top(string $title, string $active = ''): void {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f8f7f2">
-<meta name="description" content="CÁ'S HOA — thực hành an toàn Web với XSS, SQL Injection và CSRF bằng PHP, MySQL trên XAMPP.">
+<meta name="description" content="CÁ'S HOA — thực hành an toàn Web với XSS, SQL Injection, CSRF và Phishing bằng PHP, MySQL trên XAMPP.">
 <title><?= h($title) ?> | CÁ'S HOA</title>
 <link rel="stylesheet" href="<?= h(base_url('assets/css/site.css')) ?>">
 <link rel="stylesheet" href="<?= h(base_url('assets/css/refinement.css')) ?>">
+<?php if ($active === 'phishing'): ?>
+<link rel="stylesheet" href="<?= h(base_url('assets/css/phishing.css')) ?>">
+<script defer src="<?= h(base_url('assets/js/phishing.js')) ?>"></script>
+<?php endif; ?>
 <script defer src="<?= h(base_url('assets/js/site.js')) ?>"></script>
 </head>
 <body class="theme-<?= h($version) ?>">
@@ -42,6 +46,7 @@ function layout_top(string $title, string $active = ''): void {
       <a class="<?= $active === 'xss' ? 'selected' : '' ?>" <?= $active === 'xss' ? 'aria-current="page"' : '' ?> href="<?= h(page_url('xss.php')) ?>">XSS</a>
       <a class="<?= $active === 'sqli' ? 'selected' : '' ?>" <?= $active === 'sqli' ? 'aria-current="page"' : '' ?> href="<?= h(page_url('sqli.php')) ?>">SQL Injection</a>
       <a class="<?= $active === 'csrf' ? 'selected' : '' ?>" <?= $active === 'csrf' ? 'aria-current="page"' : '' ?> href="<?= h(page_url('profile.php')) ?>">CSRF / Tài khoản</a>
+      <a class="<?= $active === 'phishing' ? 'selected' : '' ?>" <?= $active === 'phishing' ? 'aria-current="page"' : '' ?> href="<?= h(page_url('phishing.php')) ?>">Phishing</a>
     </nav>
     <div class="version-switch" role="group" aria-label="Chọn phiên bản thực nghiệm">
       <a class="<?= $version === 'v1' ? 'current vulnerable' : '' ?>" <?= $version === 'v1' ? 'aria-current="page"' : '' ?> href="<?= h(version_page_url('v1')) ?>" title="Phiên bản có lỗ hổng">V1 <span>Có lỗi</span></a>
@@ -63,7 +68,7 @@ function layout_bottom(): void { ?>
 <footer class="footer">
   <div class="container footer-grid">
     <div><strong class="footer-brand">CÁ'S HOA</strong><p>Hoa cho những điều khó nói.</p><small>Giao diện lấy cảm hứng từ website cửa hàng hoa cuối kỳ.</small></div>
-    <div><strong>Security Studio</strong><p>Reflected XSS · SQL Injection · CSRF</p><small>Hai phiên bản để đối chiếu nguyên nhân và cách vá.</small></div>
+    <div><strong>Security Studio</strong><p>Reflected XSS · SQL Injection · CSRF · Phishing</p><small>Hai phiên bản để đối chiếu nguyên nhân và cách vá.</small></div>
     <div><strong>Chỉ dành cho môi trường thử nghiệm</strong><p>PHP · MySQL · Apache (XAMPP)</p><small>Không đưa bản V1 lên máy chủ công khai.</small></div>
   </div>
   <div class="container footer-bottom"><span>© CÁ'S HOA — Web Security Midterm</span><span>Local demonstration only</span></div>
