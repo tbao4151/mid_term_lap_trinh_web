@@ -22,19 +22,6 @@ jobs:
           --health-retries=10
     steps:
       - uses: actions/checkout@v4
-      - name: Package full source for submission
-        shell: bash
-        run: |
-          zip -q -r /tmp/mid_term_lap_trinh_web.zip . -x '.git/*'
-      - name: Upload source ZIP for submission
-        uses: actions/upload-artifact@v4
-        with:
-          name: cas-hoa-full-source
-          path: /tmp/mid_term_lap_trinh_web.zip
-          if-no-files-found: error
-          retention-days: 1
-      - name: Confirm source archive
-        run: unzip -t /tmp/mid_term_lap_trinh_web.zip | tail -1
       - name: Check PHP syntax
         shell: bash
         run: |
